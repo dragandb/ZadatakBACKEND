@@ -7,7 +7,7 @@ namespace ZadatakAPI.Models
     public class Stavke_racuna
     {
         [Key]
-        public int StavkeID { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public int Kolicina { get; set; }
