@@ -7,7 +7,7 @@ namespace ZadatakAPI.Models
     public class Stavke_racuna
     {
         [Key]
-        [Column("StavkeID")]
+        
         public int Id { get; set; }
 
         [Required]

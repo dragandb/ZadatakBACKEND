@@ -8,7 +8,7 @@ namespace ZadatakAPI.Models
     public class Proizvod
     {
         [Key]
-        [Column("ProizvodID")]
+        
         public int Id { get; set; }
 
         [Required]
