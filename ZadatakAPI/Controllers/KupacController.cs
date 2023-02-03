@@ -21,7 +21,7 @@ namespace ZadatakAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _context.Kupac.ToArrayAsync());
+            return Ok(await _context.Kupac.ToListAsync());
         }
 
         [HttpGet]
@@ -59,9 +59,11 @@ namespace ZadatakAPI.Controllers
 
         [HttpPatch]
         [Route("UpdateKupac")]
-        public async Task<IActionResult> UpdateKupac(Kupac kupac)
+        //public async Task<IActionResult> UpdateKupac(Kupac kupac)
+        public async Task<IActionResult> UpdateKupac(int id, Kupac kupac)
         {
-            var existkupac = await _context.Kupac.FirstOrDefaultAsync(x => x.KupacID == kupac.KupacID);
+            //var existkupac = await _context.Kupac.FirstOrDefaultAsync(x => x.KupacID == kupac.KupacID); 
+            var existkupac = await _context.Kupac.FirstOrDefaultAsync(x => x.KupacID == id);
 
             if (existkupac == null) return NotFound();
 

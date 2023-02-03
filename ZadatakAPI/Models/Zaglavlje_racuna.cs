@@ -8,7 +8,7 @@ namespace ZadatakAPI.Models
     public class Zaglavlje_racuna
     {
         [Key]
-        public int RacunID { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(255)]

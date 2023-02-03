@@ -7,7 +7,8 @@ namespace ZadatakAPI.Models
     public class Stavke_racuna
     {
         [Key]
-        public int StavkeID { get; set; }
+        [Column("StavkeID")]
+        public int Id { get; set; }
 
         [Required]
         public int Kolicina { get; set; }
@@ -26,7 +27,7 @@ namespace ZadatakAPI.Models
 
         [Required]
         [ForeignKey("Proizvod")]
-        public int ProizvodID { get; set; }
+        public int ProizvodId { get; set; }
 
         public virtual Proizvod Proizvod { get; set; }
 

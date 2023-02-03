@@ -8,7 +8,8 @@ namespace ZadatakAPI.Models
     public class Proizvod
     {
         [Key]
-        public int ProizvodID { get; set; }
+        [Column("ProizvodID")]
+        public int Id { get; set; }
 
         [Required]
         [StringLength(50)]

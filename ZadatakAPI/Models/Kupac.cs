@@ -7,7 +7,7 @@ namespace ZadatakAPI.Models
     public class Kupac
     {
         [Key]
-        public int KupacID { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
