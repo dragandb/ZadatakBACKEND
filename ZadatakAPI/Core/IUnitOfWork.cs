@@ -4,6 +4,8 @@
     {
         IKupacRepository Kupci { get; }
 
-        Task CompletyAsync();
+        IProizvodRepository Proizvodi { get; }
+
+        Task CompleteAsync();
     }
 }

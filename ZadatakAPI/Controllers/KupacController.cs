@@ -37,30 +37,30 @@ namespace ZadatakAPI.Controllers
 
         [HttpPost]
         [Route("AddKupac")]
-        public async Task<IActionResult> AddKupac(Kupac kupac)
+        public async Task<IActionResult> Add(Kupac kupac)
         {
             await _unitOfWork.Kupci.Add(kupac);
-            await _unitOfWork.CompletyAsync();
+            await _unitOfWork.CompleteAsync();
             return Ok(kupac);
         }
 
         [HttpDelete]
         [Route("DeleteKupac")]
-        public async Task<IActionResult> DeleteKupac(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var kupac = await _unitOfWork.Kupci.GetById(id);
 
             if (kupac == null) return NotFound();
 
             await _unitOfWork.Kupci.Delete(kupac);
-            await _unitOfWork.CompletyAsync();
+            await _unitOfWork.CompleteAsync();
 
             return NoContent();
         }
 
         [HttpPatch]
         [Route("UpdateKupac")]
-        public async Task<IActionResult> UpdateKupac(Kupac kupac)
+        public async Task<IActionResult> Update(Kupac kupac)
         {
              
             var existkupac = await _unitOfWork.Kupci.GetById(kupac.Id);
@@ -69,7 +69,7 @@ namespace ZadatakAPI.Controllers
 
             
             await _unitOfWork.Kupci.Update(kupac);
-            await _unitOfWork.CompletyAsync();
+            await _unitOfWork.CompleteAsync();
 
             return NoContent();
 

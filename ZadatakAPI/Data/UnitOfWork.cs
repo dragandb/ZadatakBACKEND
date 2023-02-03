@@ -14,10 +14,13 @@ namespace ZadatakAPI.Data
             var _logger = loggerFactory.CreateLogger("logs");
 
             Kupci = new KupacRepository(_context, _logger);
+            Proizvodi = new ProizvodRepository(_context, _logger);
         }
 
         public IKupacRepository Kupci { get; private set; }
-        public async Task CompletyAsync()
+        public IProizvodRepository Proizvodi { get; private set; }
+
+        public async Task CompleteAsync()
         {
             await _context.SaveChangesAsync();
         }
