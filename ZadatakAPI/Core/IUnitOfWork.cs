@@ -6,6 +6,10 @@
 
         IProizvodRepository Proizvodi { get; }
 
+        IRacunRepository Racuni { get; }
+
+        IStavkaRepository Stavke { get; }
+
         Task CompleteAsync();
     }
 }

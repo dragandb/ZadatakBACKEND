@@ -15,10 +15,14 @@ namespace ZadatakAPI.Data
 
             Kupci = new KupacRepository(_context, _logger);
             Proizvodi = new ProizvodRepository(_context, _logger);
+            Racuni = new RacunRepository(_context, _logger);
+            Stavke = new StavkaRepository(_context, _logger);
         }
 
         public IKupacRepository Kupci { get; private set; }
         public IProizvodRepository Proizvodi { get; private set; }
+        public IRacunRepository Racuni { get; private set; }
+        public IStavkaRepository Stavke { get; private set; }
 
         public async Task CompleteAsync()
         {
