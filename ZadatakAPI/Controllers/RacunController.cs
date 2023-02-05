@@ -6,7 +6,7 @@ namespace ZadatakAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RacunController : Controller
+    public class RacunController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 

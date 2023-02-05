@@ -1,4 +1,5 @@
-﻿using ZadatakAPI.Core;
+﻿using AutoMapper;
+using ZadatakAPI.Core;
 using ZadatakAPI.Core.Repositories;
 
 namespace ZadatakAPI.Data
@@ -7,16 +8,18 @@ namespace ZadatakAPI.Data
     {
         private ZadatakAPIDBContext _context;
         private readonly ILogger _logger;
-
-        public UnitOfWork(ZadatakAPIDBContext context, ILoggerFactory loggerFactory)
+        private IMapper _mapper; 
+        public UnitOfWork(ZadatakAPIDBContext context, ILoggerFactory loggerFactory, IMapper mapper)
         {
-            _context= context;
+            _mapper = mapper;
+            _context = context;
+            
             var _logger = loggerFactory.CreateLogger("logs");
 
-            Kupci = new KupacRepository(_context, _logger);
-            Proizvodi = new ProizvodRepository(_context, _logger);
-            Racuni = new RacunRepository(_context, _logger);
-            Stavke = new StavkaRepository(_context, _logger);
+            Kupci = new KupacRepository(_context, _logger, _mapper);
+            Proizvodi = new ProizvodRepository(_context, _logger, _mapper);
+            Racuni = new RacunRepository(_context, _logger, _mapper);
+            Stavke = new StavkaRepository(_context, _logger, _mapper);
         }
 
         public IKupacRepository Kupci { get; private set; }

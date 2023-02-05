@@ -6,7 +6,7 @@ namespace ZadatakAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class StavkaController : Controller
+    public class StavkaController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 

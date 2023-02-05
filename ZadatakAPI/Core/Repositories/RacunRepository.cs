@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ZadatakAPI.Data;
 using ZadatakAPI.Models;
 
@@ -6,7 +7,7 @@ namespace ZadatakAPI.Core.Repositories
 {
     public class RacunRepository : GenericRepository<Zaglavlje_racuna>, IRacunRepository
     {
-        public RacunRepository(ZadatakAPIDBContext context, ILogger logger) : base(context, logger)
+        public RacunRepository(ZadatakAPIDBContext context, ILogger logger, IMapper mapper) : base(context, logger, mapper)
         {
         }
         public override async Task<Zaglavlje_racuna?> GetById(int Id)

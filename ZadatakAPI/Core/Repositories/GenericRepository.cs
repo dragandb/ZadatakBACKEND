@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ZadatakAPI.Data;
 
 namespace ZadatakAPI.Core.Repositories
@@ -9,11 +10,13 @@ namespace ZadatakAPI.Core.Repositories
         protected ZadatakAPIDBContext _context;
         internal DbSet<T> _dbSet;
         protected ILogger _logger;
+        protected IMapper _mapper;
 
-        public GenericRepository(ZadatakAPIDBContext context, ILogger logger)
+        public GenericRepository(ZadatakAPIDBContext context, ILogger logger, IMapper mapper)
         {
             _context = context;
             _logger = logger;
+            _mapper = mapper;
             this._dbSet = _context.Set<T>();
         }
 
