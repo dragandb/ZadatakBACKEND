@@ -1,5 +1,4 @@
-﻿using Contracts;
-using LoggerService;
+﻿
 
 namespace ZadatakAPI.Extensions
 {

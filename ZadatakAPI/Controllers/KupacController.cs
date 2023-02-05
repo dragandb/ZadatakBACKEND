@@ -1,103 +1,99 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Core.Types;
 using ZadatakAPI.Core;
-using ZadatakAPI.Data;
 using ZadatakAPI.Models;
-using ZadatakAPI.Models_DTO;
+using ZadatakAPI.Models.DTO;
 
 namespace ZadatakAPI.Controllers
 {
+
     [ApiController]
     [Route("[controller]")]
     public class KupacController : ControllerBase
     {
-        private readonly IUnitOfWork _repository;
-        private readonly IMapper _mapper;
-        private readonly ILogger _logger;
-        public KupacController(IUnitOfWork unitOfWork)
+
+        private IRepositoryWrapper _repository;
+        private ILogger<KupacController> _logger;
+        private IMapper _mapper;
+
+        public KupacController(IRepositoryWrapper repository, ILogger<KupacController> logger, IMapper mapper)
         {
-            _repository = unitOfWork;
-            
+            _mapper = mapper;
+            _logger = logger;
+            _repository = repository;
         }
 
         //CRUD
 
         [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var kupac = await _repository.Kupci.ALL();
-
-            _logger.LogInformation("Svi kupci.");
-            return Ok(kupac);
-            //return Ok(await _repository.Kupci.ALL());
-        }
-
-        [HttpGet]
-        [Route("GetbyId")]
-        public async Task<IActionResult> GetID(int id)
+        public IActionResult GetAllOwners()
         {
             try
             {
-                var kupac = await _repository.Kupci.GetById(id);
-                if (kupac is null)
-                {
-                    
-                    return NotFound();
-                }
-                else
-                {
+                var kupac = _repository.Kupac.GetAllKupac();
+                _logger.LogInformation("Returned all owners from database.");
 
-                 return Ok(kupac);
-                }
+                //var kupacResult = _mapper.Map<IEnumerable<KupacDTO>>(kupac);
+                return Ok(kupac);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                
+                _logger.LogError("Something went wrong inside GetAllKupac action.");
                 return StatusCode(500, "Internal server error");
             }
         }
 
-        [HttpPost]
-        [Route("AddKupac")]
-        public async Task<IActionResult> Add(Kupac kupac)
+        [HttpGet]
+        [Route("GetbyId")]
+        public IActionResult GetKupacById(int id)
         {
-            await _repository.Kupci.Add(kupac);
-            await _repository.CompleteAsync();
-            return Ok(kupac);
+            try
+            {
+                var kupac = _repository.Kupac.GetKupacById(id);
+                if (kupac is null)
+                {
+                    _logger.LogError($"Owner with id: {id}, hasn't been found in db.");
+                    return NotFound();
+                }
+                else
+                {
+                    _logger.LogInformation($"Returned owner with id: {id}");
+                    var kupacResult = _mapper.Map<Kupac>(kupac);
+                    return Ok(kupacResult);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside GetOwnerById action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
-        [HttpDelete]
-        [Route("DeleteKupac")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpGet]
+        [Route("GetbyBEZid")]
+        public IActionResult GetKupacBezID(int id)
         {
-            var kupac = await _repository.Kupci.GetById(id);
-
-            if (kupac == null) return NotFound();
-
-            await _repository.Kupci.Delete(kupac);
-            await _repository.CompleteAsync();
-
-            return NoContent();
+            try
+            {
+                var kupac = _repository.Kupac.GetKupacBezID(id);
+                if (kupac is null)
+                {
+                    _logger.LogError($"Owner with id: {id}, hasn't been found in db.");
+                    return NotFound();
+                }
+                else
+                {
+                    _logger.LogInformation($"Returned owner with id: {id}");
+                    var kupacResult = _mapper.Map<KupacBezIdDTO>(kupac);
+                    return Ok(kupacResult);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside GetOwnerById action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
-        [HttpPatch]
-        [Route("UpdateKupac")]
-        public async Task<IActionResult> Update(Kupac kupac)
-        {
-             
-            var existkupac = await _repository.Kupci.GetById(kupac.Id);
-
-            if (existkupac == null) return NotFound();
-
-            
-            await _repository.Kupci.Update(kupac);
-            await _repository.CompleteAsync();
-
-            return NoContent();
-
-        }
-        
     }
 }

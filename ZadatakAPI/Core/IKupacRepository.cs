@@ -2,7 +2,10 @@
 
 namespace ZadatakAPI.Core
 {
-    public interface IKupacRepository : IGenericRepository<Kupac>
+    public interface IKupacRepository
     {
+        IEnumerable<Kupac> GetAllKupac();
+        Kupac GetKupacById(int Id);
+        Kupac GetKupacBezID(int Id);
     }
 }

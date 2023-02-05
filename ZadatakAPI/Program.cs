@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ZadatakAPI.Extensions;
 using ZadatakAPI.Data;
 using ZadatakAPI.Core;
+using ZadatakAPI.Core.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +14,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddDbContext<ZadatakAPIDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ZadatakAPIDB")));
 
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

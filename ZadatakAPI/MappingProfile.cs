@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ZadatakAPI.Models;
-using ZadatakAPI.Models_DTO;
+using ZadatakAPI.Models.DTO;
+
 
 namespace ZadatakAPI
 {
@@ -9,7 +10,7 @@ namespace ZadatakAPI
 
         public MappingProfile()
         {
-            
-        }
+            CreateMap<Kupac, KupacDTO>();
+        }   
     }    
 }
