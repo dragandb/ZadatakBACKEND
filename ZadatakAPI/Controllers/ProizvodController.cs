@@ -1,39 +1,37 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ZadatakAPI.Core;
-using ZadatakAPI.Models;
 using ZadatakAPI.Models.DTO;
+using ZadatakAPI.Models;
 
 namespace ZadatakAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class KupacController : ControllerBase
+    public class ProizvodController : ControllerBase
     {
-
         private IRepositoryWrapper _repository;
-        private ILogger<KupacController> _logger;
+        private ILogger<ProizvodController> _logger;
         private IMapper _mapper;
 
-        public KupacController(IRepositoryWrapper repository, ILogger<KupacController> logger, IMapper mapper)
+        public ProizvodController(IRepositoryWrapper repository, ILogger<ProizvodController> logger, IMapper mapper)
         {
             _mapper = mapper;
             _logger = logger;
             _repository = repository;
         }
-
         //CRUD
 
         [HttpGet]
-        public IActionResult GetAllKupac()
+        public IActionResult GetAllProizvod()
         {
             try
             {
-                var kupac = _repository.Kupac.GetAllKupac();
+                var proizvod = _repository.Proizvod.GetAllProizvod();
                 _logger.LogInformation("Returned all objects from database.");
 
-                var kupacResult = _mapper.Map<IEnumerable<KupacDTO>>(kupac);
-                return Ok(kupacResult);
+                var proizvodResult = _mapper.Map<IEnumerable<ProizvodDTO>>(proizvod);
+                return Ok(proizvodResult);
             }
             catch (Exception ex)
             {
@@ -42,40 +40,14 @@ namespace ZadatakAPI.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "KupacById")]
-        
-        public IActionResult GetKupacById(int id)
-        {
-            try
-            {
-                var kupac = _repository.Kupac.GetKupacById(id);
-                if (kupac is null)
-                {
-                    _logger.LogError($"Object with id: {id}, hasn't been found in db.");
-                    return NotFound();
-                }
-                else
-                {
-                    _logger.LogInformation($"Returned object with id: {id}");
-                    var kupacResult = _mapper.Map<KupacDTO>(kupac);
-                    return Ok(kupacResult);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong: {ex.Message}");
-                return StatusCode(500, "Internal server error");
-            }
-        }
+        [HttpGet("{id}", Name = "ProizvodById")]
 
-        [HttpGet]
-        [Route("GetbyBezId")]
-        public IActionResult GetKupacBezID(int id)
+        public IActionResult GetProizvodById(int id)
         {
             try
             {
-                var kupac = _repository.Kupac.GetKupacBezID(id);
-                if (kupac is null)
+                var proizvod = _repository.Proizvod.GetProizvodById(id);
+                if (proizvod is null)
                 {
                     _logger.LogError($"Object with id: {id}, hasn't been found in db.");
                     return NotFound();
@@ -83,8 +55,8 @@ namespace ZadatakAPI.Controllers
                 else
                 {
                     _logger.LogInformation($"Returned object with id: {id}");
-                    var kupacResult = _mapper.Map<KupacBezIdDTO>(kupac);
-                    return Ok(kupacResult);
+                    var proizvodResult = _mapper.Map<ProizvodDTO>(proizvod);
+                    return Ok(proizvodResult);
                 }
             }
             catch (Exception ex)
@@ -96,11 +68,11 @@ namespace ZadatakAPI.Controllers
 
         [HttpPost]
         [Route("Add")]
-        public IActionResult CreateKupac([FromBody] KupacForCreationDTO kupac)
+        public IActionResult CreateProizvod([FromBody] ProizvodForCreationDTO proizvod)
         {
             try
             {
-                if (kupac is null)
+                if (proizvod is null)
                 {
                     _logger.LogError("Object sent from client is null.");
                     return BadRequest("Object is null");
@@ -110,11 +82,11 @@ namespace ZadatakAPI.Controllers
                     _logger.LogError("Invalid object sent from client.");
                     return BadRequest("Invalid model object");
                 }
-                var kupacEntity = _mapper.Map<Kupac>(kupac);
-                _repository.Kupac.CreateKupac(kupacEntity);
+                var proizvodEntity = _mapper.Map<Proizvod>(proizvod);
+                _repository.Proizvod.CreateProizvod(proizvodEntity);
                 _repository.Save();
-                var createdKupac = _mapper.Map<KupacDTO>(kupacEntity);
-                return CreatedAtRoute("KupacById", new { id = createdKupac.Id }, createdKupac);
+                var createdProizvod = _mapper.Map<ProizvodDTO>(proizvodEntity);
+                return CreatedAtRoute("ProizvodById", new { id = createdProizvod.Id }, createdProizvod);
             }
             catch (Exception ex)
             {
@@ -126,11 +98,11 @@ namespace ZadatakAPI.Controllers
 
         [HttpPut]
         [Route("Update")]
-        public IActionResult UpdateKupac(int id, [FromBody] KupacForUpdateDTO kupac)
+        public IActionResult UpdateProizvod(int id, [FromBody] ProizvodForUpdateDTO proizvod)
         {
             try
             {
-                if (kupac is null)
+                if (proizvod is null)
                 {
                     _logger.LogError("Object sent from client is null.");
                     return BadRequest("Object is null");
@@ -140,14 +112,14 @@ namespace ZadatakAPI.Controllers
                     _logger.LogError("Invalid object sent from client.");
                     return BadRequest("Invalid model object");
                 }
-                var kupacEntity = _repository.Kupac.GetKupacById(id);
-                if (kupacEntity is null)
+                var proizvodEntity = _repository.Proizvod.GetProizvodById(id);
+                if (proizvodEntity is null)
                 {
                     _logger.LogError($"Object with id: {id}, hasn't been found in db.");
                     return NotFound();
                 }
-                _mapper.Map(kupac, kupacEntity);
-                _repository.Kupac.UpdateKupac(kupacEntity);
+                _mapper.Map(proizvod, proizvodEntity);
+                _repository.Proizvod.UpdateProizvod(proizvodEntity);
                 _repository.Save();
                 return NoContent();
             }
@@ -160,17 +132,17 @@ namespace ZadatakAPI.Controllers
 
         [HttpDelete]
         [Route("Remove")]
-        public IActionResult DeleteKupac(int id)
+        public IActionResult DeleteProizvod(int id)
         {
             try
             {
-                var kupac = _repository.Kupac.GetKupacById(id);
-                if (kupac == null)
+                var proizvod = _repository.Proizvod.GetProizvodById(id);
+                if (proizvod == null)
                 {
                     _logger.LogError($"Object with id: {id}, hasn't been found in db.");
                     return NotFound();
                 }
-                _repository.Kupac.DeleteKupac(kupac);
+                _repository.Proizvod.DeleteProizvod(proizvod);
                 _repository.Save();
                 return NoContent();
             }

@@ -6,7 +6,7 @@ namespace ZadatakAPI.Core.Repositories
     {
         private ZadatakAPIDBContext _repoContext;
         private IKupacRepository _kupac;
-        
+        private IProizvodRepository _proizvod;
         public IKupacRepository Kupac
         {
             get
@@ -18,9 +18,19 @@ namespace ZadatakAPI.Core.Repositories
                 return _kupac;
             }
         }
-        
-            
-        
+        public IProizvodRepository Proizvod
+        {
+            get
+            {
+                if (_proizvod == null)
+                {
+                    _proizvod = new ProizvodRepository(_repoContext);
+                }
+                return _proizvod;
+            }
+        }
+
+
         public RepositoryWrapper(ZadatakAPIDBContext repositoryContext)
         {
             _repoContext = repositoryContext;
