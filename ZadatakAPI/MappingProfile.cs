@@ -11,6 +11,9 @@ namespace ZadatakAPI
         public MappingProfile()
         {
             CreateMap<Kupac, KupacDTO>();
+            CreateMap<Kupac, KupacBezIdDTO>();
+            CreateMap<KupacForCreationDTO, Kupac>();
+            CreateMap<KupacForUpdateDTO, Kupac>();
         }   
     }    
 }

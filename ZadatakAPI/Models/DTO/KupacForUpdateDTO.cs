@@ -1,15 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ZadatakAPI.Models.DTO
 {
-    [Index(nameof(Sifra), IsUnique = true)]
-    public class KupacDTO
+    public class KupacForUpdateDTO
     {
-
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         [StringLength(50)]
         public string Sifra { get; set; }

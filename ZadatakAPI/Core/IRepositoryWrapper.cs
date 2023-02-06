@@ -3,5 +3,7 @@
     public interface IRepositoryWrapper
     {
         IKupacRepository Kupac { get; }
+
+        void Save();
     }
 }

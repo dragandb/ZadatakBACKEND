@@ -31,20 +31,20 @@ namespace ZadatakAPI.Controllers
             try
             {
                 var kupac = _repository.Kupac.GetAllKupac();
-                _logger.LogInformation("Returned all owners from database.");
+                _logger.LogInformation("Returned all objects from database.");
 
-                //var kupacResult = _mapper.Map<IEnumerable<KupacDTO>>(kupac);
-                return Ok(kupac);
+                var kupacResult = _mapper.Map<IEnumerable<KupacDTO>>(kupac);
+                return Ok(kupacResult);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _logger.LogError("Something went wrong inside GetAllKupac action.");
+                _logger.LogError($"Something went wrong: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }
 
-        [HttpGet]
-        [Route("GetbyId")]
+        [HttpGet("{id}", Name = "KupacById")]
+        
         public IActionResult GetKupacById(int id)
         {
             try
@@ -52,25 +52,25 @@ namespace ZadatakAPI.Controllers
                 var kupac = _repository.Kupac.GetKupacById(id);
                 if (kupac is null)
                 {
-                    _logger.LogError($"Owner with id: {id}, hasn't been found in db.");
+                    _logger.LogError($"Object with id: {id}, hasn't been found in db.");
                     return NotFound();
                 }
                 else
                 {
-                    _logger.LogInformation($"Returned owner with id: {id}");
-                    var kupacResult = _mapper.Map<Kupac>(kupac);
+                    _logger.LogInformation($"Returned object with id: {id}");
+                    var kupacResult = _mapper.Map<KupacDTO>(kupac);
                     return Ok(kupacResult);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Something went wrong inside GetOwnerById action: {ex.Message}");
+                _logger.LogError($"Something went wrong: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }
 
         [HttpGet]
-        [Route("GetbyBEZid")]
+        [Route("GetbyBezId")]
         public IActionResult GetKupacBezID(int id)
         {
             try
@@ -78,22 +78,108 @@ namespace ZadatakAPI.Controllers
                 var kupac = _repository.Kupac.GetKupacBezID(id);
                 if (kupac is null)
                 {
-                    _logger.LogError($"Owner with id: {id}, hasn't been found in db.");
+                    _logger.LogError($"Object with id: {id}, hasn't been found in db.");
                     return NotFound();
                 }
                 else
                 {
-                    _logger.LogInformation($"Returned owner with id: {id}");
+                    _logger.LogInformation($"Returned object with id: {id}");
                     var kupacResult = _mapper.Map<KupacBezIdDTO>(kupac);
                     return Ok(kupacResult);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Something went wrong inside GetOwnerById action: {ex.Message}");
+                _logger.LogError($"Something went wrong: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }
 
+        [HttpPost]
+        [Route("Add")]
+        public IActionResult CreateKupac([FromBody] KupacForCreationDTO kupac)
+        {
+            try
+            {
+                if (kupac is null)
+                {
+                    _logger.LogError("Object sent from client is null.");
+                    return BadRequest("Object is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogError("Invalid object sent from client.");
+                    return BadRequest("Invalid model object");
+                }
+                var kupacEntity = _mapper.Map<Kupac>(kupac);
+                _repository.Kupac.CreateKupac(kupacEntity);
+                _repository.Save();
+                var createdKupac = _mapper.Map<KupacDTO>(kupacEntity);
+                return CreatedAtRoute("KupacById", new { id = createdKupac.Id }, createdKupac);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside CreateOwner action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+
+        }
+
+        [HttpPut]
+        [Route("Update")]
+        public IActionResult UpdateKupac(int id, [FromBody] KupacForUpdateDTO kupac)
+        {
+            try
+            {
+                if (kupac is null)
+                {
+                    _logger.LogError("Object sent from client is null.");
+                    return BadRequest("Object is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogError("Invalid object sent from client.");
+                    return BadRequest("Invalid model object");
+                }
+                var kupacEntity = _repository.Kupac.GetKupacById(id);
+                if (kupacEntity is null)
+                {
+                    _logger.LogError($"Object with id: {id}, hasn't been found in db.");
+                    return NotFound();
+                }
+                _mapper.Map(kupac, kupacEntity);
+                _repository.Kupac.UpdateKupac(kupacEntity);
+                _repository.Save();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpDelete]
+        [Route("Remove")]
+        public IActionResult DeleteKupac(int id)
+        {
+            try
+            {
+                var kupac = _repository.Kupac.GetKupacById(id);
+                if (kupac == null)
+                {
+                    _logger.LogError($"Object with id: {id}, hasn't been found in db.");
+                    return NotFound();
+                }
+                _repository.Kupac.DeleteKupac(kupac);
+                _repository.Save();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }

@@ -24,5 +24,19 @@ namespace ZadatakAPI.Core.Repositories
             return FindByCondition(x => x.Id.Equals(Id))
             .FirstOrDefault();
         }
+
+        public void CreateKupac(Kupac kupac)
+        {
+            Create(kupac);
+        }
+
+        public void UpdateKupac(Kupac kupac)
+        {
+            Update(kupac);
+        }
+        public void DeleteKupac(Kupac kupac)
+        {
+            Delete(kupac);
+        }
     }
 }
