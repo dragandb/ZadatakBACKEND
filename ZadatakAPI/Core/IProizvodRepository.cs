@@ -7,8 +7,8 @@ namespace ZadatakAPI.Core
         IEnumerable<Proizvod> GetAllProizvod();
         Proizvod GetProizvodById(int Id);
         Proizvod GetProizvodBezID(int Id);
-        void CreateProizvod(Proizvod kupac);
-        void UpdateProizvod(Proizvod kupac);
-        void DeleteProizvod(Proizvod kupac);
+        void CreateProizvod(Proizvod proizvod);
+        void UpdateProizvod(Proizvod proizvod);
+        void DeleteProizvod(Proizvod proizvod);
     }
 }

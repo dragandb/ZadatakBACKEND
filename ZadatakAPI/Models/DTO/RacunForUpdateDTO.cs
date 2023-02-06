@@ -2,7 +2,7 @@
 
 namespace ZadatakAPI.Models.DTO
 {
-    public class RacunFroUpdateDTO
+    public class RacunForUpdateDTO
     {
         [Required]
         [StringLength(255)]

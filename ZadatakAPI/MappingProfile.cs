@@ -24,7 +24,7 @@ namespace ZadatakAPI
          //PROIZVOD
             CreateMap<Zaglavlje_racuna, RacunDTO>();
             CreateMap<RacunForCreationDTO, Zaglavlje_racuna>();
-            CreateMap<RacunFroUpdateDTO, Zaglavlje_racuna>();
+            CreateMap<RacunForUpdateDTO, Zaglavlje_racuna>();
 
          //PROIZVOD
             CreateMap<Stavke_racuna, StavkaDTO>();

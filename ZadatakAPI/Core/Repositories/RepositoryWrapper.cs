@@ -7,6 +7,9 @@ namespace ZadatakAPI.Core.Repositories
         private ZadatakAPIDBContext _repoContext;
         private IKupacRepository _kupac;
         private IProizvodRepository _proizvod;
+        private IRacunRepository _racun;
+        private IStavkaRepository _stavka;
+
         public IKupacRepository Kupac
         {
             get
@@ -29,7 +32,28 @@ namespace ZadatakAPI.Core.Repositories
                 return _proizvod;
             }
         }
-
+        public IRacunRepository Racun
+        {
+            get
+            {
+                if (_racun == null)
+                {
+                    _racun = new RacunRepository(_repoContext);
+                }
+                return _racun;
+            }
+        }
+        public IStavkaRepository Stavka
+        {
+            get
+            {
+                if (_stavka == null)
+                {
+                    _stavka = new StavkaRepository(_repoContext);
+                }
+                return _stavka;
+            }
+        }
 
         public RepositoryWrapper(ZadatakAPIDBContext repositoryContext)
         {

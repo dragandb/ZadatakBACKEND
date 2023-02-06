@@ -25,18 +25,18 @@ namespace ZadatakAPI.Core.Repositories
             .FirstOrDefault();
         }
 
-        public void CreateProizvod(Proizvod Proizvod)
+        public void CreateProizvod(Proizvod proizvod)
         {
-            Create(Proizvod);
+            Create(proizvod);
         }
 
-        public void UpdateProizvod(Proizvod Proizvod)
+        public void UpdateProizvod(Proizvod proizvod)
         {
-            Update(Proizvod);
+            Update(proizvod);
         }
-        public void DeleteProizvod(Proizvod Proizvod)
+        public void DeleteProizvod(Proizvod proizvod)
         {
-            Delete(Proizvod);
+            Delete(proizvod);
         }
     }
 }
