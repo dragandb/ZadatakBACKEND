@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ZadatakAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,7 @@ builder.Services.AddDbContext<ZadatakAPIDBContext>(options => options.UseNpgsql(
 
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Password.RequiredLength = 4)
+builder.Services.AddIdentity<ApiUser, IdentityRole>(options => options.Password.RequiredLength = 4)
     .AddEntityFrameworkStores<ZadatakAPIDBContext>()
     .AddDefaultTokenProviders();
 
