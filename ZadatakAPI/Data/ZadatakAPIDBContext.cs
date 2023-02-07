@@ -4,7 +4,7 @@ using ZadatakAPI.Models;
 
 namespace ZadatakAPI.Data
 {
-    public class ZadatakAPIDBContext : IdentityDbContext
+    public class ZadatakAPIDBContext : IdentityDbContext<ApiUser>
     {
         public ZadatakAPIDBContext(DbContextOptions options) : base(options)
         {
