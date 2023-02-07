@@ -20,9 +20,11 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<ZadatakAPIDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ZadatakAPIDB")));
 
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Password.RequiredLength = 4)
     .AddEntityFrameworkStores<ZadatakAPIDBContext>()
     .AddDefaultTokenProviders();
+
 builder.Services.AddAuthentication(auth =>
 {
     auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
