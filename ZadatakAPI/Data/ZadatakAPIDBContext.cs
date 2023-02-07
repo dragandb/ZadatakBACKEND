@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ZadatakAPI.Models;
 
 namespace ZadatakAPI.Data
 {
-    public class ZadatakAPIDBContext : DbContext
+    public class ZadatakAPIDBContext : IdentityDbContext
     {
         public ZadatakAPIDBContext(DbContextOptions options) : base(options)
         {
