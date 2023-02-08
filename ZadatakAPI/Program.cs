@@ -77,5 +77,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MigrateDatabase(); //migrate database on startup
 app.Run();
