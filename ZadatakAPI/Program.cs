@@ -16,16 +16,22 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
-
+builder.Services.AddAutoMapper(typeof(Program));
+    //conecting to the database
 builder.Services.AddDbContext<ZadatakAPIDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ZadatakAPIDB")));
 
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-
-builder.Services.AddIdentity<ApiUser, IdentityRole>(options => options.Password.RequiredLength = 4)
+  //EF CORE IDENTITY CONFIGURATION
+builder.Services.AddIdentity<ApiUser, IdentityRole>(options => 
+{
+    options.Password.RequiredLength = 8;
+    options.Password.RequireDigit = false;
+    options.Password.RequireUppercase = false;
+    options.User.RequireUniqueEmail = true;
+})
     .AddEntityFrameworkStores<ZadatakAPIDBContext>()
     .AddDefaultTokenProviders();
-
+  //JWT Token AUTHENTICATION CONFIGURATION
 builder.Services.AddAuthentication(auth =>
 {
     auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

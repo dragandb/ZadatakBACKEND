@@ -30,6 +30,11 @@ namespace ZadatakAPI
             CreateMap<Stavke_racuna, StavkaDTO>();
             CreateMap<StavkaForCreationDTO, Stavke_racuna>();
             CreateMap<StavkaForUpdateDTO, Stavke_racuna>();
+
+            //REGISTRATION
+            CreateMap<ApiUser, UserDTO>();
+            CreateMap<UserDTO, ApiUser>()
+                .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email)); ;
         }   
     }    
 }
