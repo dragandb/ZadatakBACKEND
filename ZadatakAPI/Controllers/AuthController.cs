@@ -32,5 +32,21 @@ namespace ZadatakAPI.Controllers
             
             return BadRequest("Something is wrong");
         }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> LoginAsync([FromBody] LoginUserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userService.LoginUserAsync(model);
+
+                if (result.IsSuccess)
+                    return Ok(result);
+
+                return BadRequest(result);
+            }
+
+            return BadRequest("Something is wrong");
+        }
     }
 }

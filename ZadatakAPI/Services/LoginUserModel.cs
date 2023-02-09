@@ -2,7 +2,7 @@
 
 namespace ZadatakAPI.Services
 {
-    public class RegisterUserModel
+    public class LoginUserModel
     {
         [Required]
         [StringLength(50)]
@@ -12,9 +12,5 @@ namespace ZadatakAPI.Services
         [Required]
         [StringLength(50, MinimumLength = 5)]
         public string Password { get; set; }
-
-        [Required]
-        [StringLength(50, MinimumLength = 5)]
-        public string ConfirmPassword { get; set; }
     }
 }
