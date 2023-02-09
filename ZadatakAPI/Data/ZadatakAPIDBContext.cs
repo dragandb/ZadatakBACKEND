@@ -5,16 +5,16 @@ using ZadatakAPI.Models;
 
 namespace ZadatakAPI.Data
 {
-    public class ZadatakAPIDBContext : IdentityDbContext<ApiUser>
+    public class ZadatakAPIDBContext : IdentityDbContext
     {
         public ZadatakAPIDBContext(DbContextOptions options) : base(options)
         {
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new RoleConfiguration());
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //    modelBuilder.ApplyConfiguration(new RoleConfiguration());
+        //}
 
         public DbSet<Kupac> Kupac { get; set; }
 

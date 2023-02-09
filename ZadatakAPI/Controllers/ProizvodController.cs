@@ -7,7 +7,7 @@ using ZadatakAPI.Models;
 namespace ZadatakAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProizvodController : ControllerBase
     {
         private IRepositoryWrapper _repository;

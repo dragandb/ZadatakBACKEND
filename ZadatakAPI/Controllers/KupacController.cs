@@ -7,7 +7,7 @@ using ZadatakAPI.Models.DTO;
 namespace ZadatakAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class KupacController : ControllerBase
     {
 

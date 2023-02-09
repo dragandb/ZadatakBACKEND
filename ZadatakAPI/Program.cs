@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ZadatakAPI.Models;
+using ZadatakAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +22,12 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDbContext<ZadatakAPIDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ZadatakAPIDB")));
 
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-  //EF CORE IDENTITY CONFIGURATION
-builder.Services.AddIdentity<ApiUser, IdentityRole>(options => 
+
+builder.Services.AddScoped<IUserService, UserService>();
+//EF CORE IDENTITY CONFIGURATION
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => 
 {
-    options.Password.RequiredLength = 8;
+    options.Password.RequiredLength = 5;
     options.Password.RequireDigit = false;
     options.Password.RequireUppercase = false;
     options.User.RequireUniqueEmail = true;
