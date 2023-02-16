@@ -67,7 +67,6 @@ namespace ZadatakAPI.Controllers
         }
 
         [HttpPost]
-        [Route("Add")]
         public IActionResult CreateRacun([FromBody] RacunForCreationDTO racun)
         {
             try
@@ -95,8 +94,7 @@ namespace ZadatakAPI.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("Update")]
+        [HttpPut("{id}")]
         public IActionResult UpdateRacun(int id, [FromBody] RacunForUpdateDTO racun)
         {
             try
@@ -129,8 +127,7 @@ namespace ZadatakAPI.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("Remove")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteRacun(int id)
         {
             try

@@ -95,7 +95,6 @@ namespace ZadatakAPI.Controllers
         }
 
         [HttpPost]
-        [Route("Add")]
         public IActionResult CreateKupac([FromBody] KupacForCreationDTO kupac)
         {
             try
@@ -124,8 +123,7 @@ namespace ZadatakAPI.Controllers
 
         }
 
-        [HttpPut]
-        [Route("Update")]
+        [HttpPut("{id}")]
         public IActionResult UpdateKupac(int id, [FromBody] KupacForUpdateDTO kupac)
         {
             try
@@ -158,8 +156,7 @@ namespace ZadatakAPI.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("Remove")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteKupac(int id)
         {
             try

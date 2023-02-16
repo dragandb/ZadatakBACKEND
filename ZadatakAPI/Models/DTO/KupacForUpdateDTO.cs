@@ -13,11 +13,11 @@ namespace ZadatakAPI.Models.DTO
         public string Naziv { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(100)]
         public string Adresa { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(100)]
         public string Mjesto { get; set; }
     }
 }

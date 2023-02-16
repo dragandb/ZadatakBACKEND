@@ -24,16 +24,13 @@ namespace ZadatakAPI.Models
         [Required]
         public decimal Vrijednost { get; set; }
 
-        [Required]
-        [ForeignKey("Proizvod")]
-        public int ProizvodID { get; set; }
+        [ForeignKey(nameof(Proizvod))]
+        public int ProizvodId { get; set; }
+        public Proizvod? Proizvod { get; set; }
 
-        public virtual Proizvod Proizvod { get; set; }
+        [ForeignKey(nameof(Zaglavlje_racuna))]
+        public int RacunId { get; set; }
+        public Zaglavlje_racuna? Zaglavlje_Racuna { get; set; }
 
-        [Required]
-        [ForeignKey("Zaglavlje_racuna")]
-        public int RacunID { get; set; }
-
-        public virtual Zaglavlje_racuna Zaglavlje_racuna { get; set; }
     }
 }

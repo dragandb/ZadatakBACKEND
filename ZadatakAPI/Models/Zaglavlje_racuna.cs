@@ -21,10 +21,8 @@ namespace ZadatakAPI.Models
         [StringLength(255)]
         public string Napomena { get; set; }
 
-        [Required]
-        [ForeignKey("Kupac")]
-        public int KupacID { get; set; }
-
-        public virtual Kupac Kupac { get; set; }
+        [ForeignKey(nameof(Kupac))]
+        public int KupacId { get; set; }
+        public Kupac? Kupac { get; set; }
     }
 }

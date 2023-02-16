@@ -67,7 +67,6 @@ namespace ZadatakAPI.Controllers
         }
 
         [HttpPost]
-        [Route("Add")]
         public IActionResult CreateProizvod([FromBody] ProizvodForCreationDTO proizvod)
         {
             try
@@ -96,8 +95,7 @@ namespace ZadatakAPI.Controllers
 
         }
 
-        [HttpPut]
-        [Route("Update")]
+        [HttpPut("{id}")]
         public IActionResult UpdateProizvod(int id, [FromBody] ProizvodForUpdateDTO proizvod)
         {
             try
@@ -130,8 +128,7 @@ namespace ZadatakAPI.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("Remove")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteProizvod(int id)
         {
             try

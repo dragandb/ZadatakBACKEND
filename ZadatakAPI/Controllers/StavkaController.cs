@@ -68,7 +68,6 @@ namespace ZadatakAPI.Controllers
         }
 
         [HttpPost]
-        [Route("Add")]
         public IActionResult CreateStavka([FromBody] StavkaForCreationDTO stavka)
         {
             try
@@ -96,8 +95,7 @@ namespace ZadatakAPI.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("Update")]
+        [HttpPut("{id}")]
         public IActionResult UpdateStavka(int id, [FromBody] StavkaForUpdateDTO stavka)
         {
             try
@@ -130,8 +128,7 @@ namespace ZadatakAPI.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("Remove")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteStavka(int id)
         {
             try

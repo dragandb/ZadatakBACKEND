@@ -16,10 +16,5 @@ namespace ZadatakAPI.Models.DTO
         [StringLength(255)]
         public string Napomena { get; set; }
 
-        [Required]
-        [ForeignKey("Kupac")]
-        public int KupacID { get; set; }
-
-        public virtual Kupac Kupac { get; set; }
     }
 }
