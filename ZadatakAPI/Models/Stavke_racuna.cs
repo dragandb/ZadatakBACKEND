@@ -28,7 +28,7 @@ namespace ZadatakAPI.Models
         public int ProizvodId { get; set; }
         public Proizvod? Proizvod { get; set; }
 
-        [ForeignKey(nameof(Zaglavlje_racuna))]
+        [ForeignKey(nameof(Zaglavlje_Racuna))]
         public int RacunId { get; set; }
         public Zaglavlje_racuna? Zaglavlje_Racuna { get; set; }
 
