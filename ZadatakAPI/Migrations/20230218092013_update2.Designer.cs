@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ZadatakAPI.Data;
@@ -11,9 +12,11 @@ using ZadatakAPI.Data;
 namespace ZadatakAPI.Migrations
 {
     [DbContext(typeof(ZadatakAPIDBContext))]
-    partial class ZadatakAPIDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230218092013_update2")]
+    partial class update2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,17 +230,24 @@ namespace ZadatakAPI.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Adresa")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Mjesto")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Naziv")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Sifra")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -259,17 +269,24 @@ namespace ZadatakAPI.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<string>("Jedinica_mjere")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("Naziv")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Sifra")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Stanje")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.HasKey("Id");
 
@@ -296,8 +313,8 @@ namespace ZadatakAPI.Migrations
                     b.Property<int>("Kolicina")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Popust")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Popust")
+                        .HasColumnType("numeric");
 
                     b.Property<int>("ProizvodId")
                         .HasColumnType("integer");
@@ -327,7 +344,8 @@ namespace ZadatakAPI.Migrations
 
                     b.Property<string>("Broj")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<DateTime>("Datum")
                         .HasColumnType("timestamp with time zone");
@@ -336,7 +354,9 @@ namespace ZadatakAPI.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Napomena")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.HasKey("Id");
 

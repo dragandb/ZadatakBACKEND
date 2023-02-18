@@ -4,19 +4,14 @@ namespace ZadatakAPI.Models.DTO
 {
     public class StavkaForCreationDTO
     {
-        [Required]
         public int Kolicina { get; set; }
-
-        [Required]
         public decimal Cijena { get; set; }
-
-        [Required]
-        public decimal Popust { get; set; }
-
-        [Required]
+        public int Popust { get; set; }
         public decimal Iznos_popusta { get; set; }
-
-        [Required]
         public decimal Vrijednost { get; set; }
+
+        public int ProizvodId { get; set; }
+
+        public int RacunId { get; set; }
     }
 }

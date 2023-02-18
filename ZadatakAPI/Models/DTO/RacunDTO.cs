@@ -10,7 +10,11 @@ namespace ZadatakAPI.Models.DTO
         public int Id { get; set; }
         public string Broj { get; set; }
         public DateTime Datum { get; set; }
-        public string Napomena { get; set; }
+        public string? Napomena { get; set; }
 
+        public ICollection<StavkaDTO>? Stavke { get; set; }
+
+        public int KupacId { get; set; }
+        public KupacDTO? Kupac { get; set; }
     }
 }

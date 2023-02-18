@@ -6,22 +6,11 @@ namespace ZadatakAPI.Models
     
     public class Stavke_racuna
     {
-        [Key]
         public int Id { get; set; }
-
-        [Required]
         public int Kolicina { get; set; }
-
-        [Required]
         public decimal Cijena { get; set; }
-
-        [Required]
-        public decimal Popust { get; set; }
-
-        [Required]
+        public int Popust { get; set; }
         public decimal Iznos_popusta { get; set; }
-
-        [Required]
         public decimal Vrijednost { get; set; }
 
         [ForeignKey(nameof(Proizvod))]

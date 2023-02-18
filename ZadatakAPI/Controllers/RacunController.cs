@@ -84,12 +84,12 @@ namespace ZadatakAPI.Controllers
                 var racunEntity = _mapper.Map<Zaglavlje_racuna>(racun);
                 _repository.Racun.CreateRacun(racunEntity);
                 _repository.Save();
-                var createdRacun = _mapper.Map<ProizvodDTO>(racunEntity);
+                var createdRacun = _mapper.Map<RacunDTO>(racunEntity);
                 return CreatedAtRoute("RacunById", new { id = createdRacun.Id }, createdRacun);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Something went wrong inside CreateOwner action: {ex.Message}");
+                _logger.LogError($"Something went wrong: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }

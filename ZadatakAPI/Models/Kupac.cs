@@ -1,28 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Principal;
 
 namespace ZadatakAPI.Models
 {
     [Index(nameof(Sifra), IsUnique = true)]
     public class Kupac
     {
-        [Key]
         public int Id { get; set; }
-
-        [Required]
-        [StringLength(50)]
         public string Sifra { get; set; }
+        public string? Naziv { get; set; }
+        public string? Adresa { get; set; }
+        public string? Mjesto { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string Naziv { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Adresa { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Mjesto { get; set; }
+        public ICollection<Zaglavlje_racuna>? Racuni { get; set; }
     }
 }
