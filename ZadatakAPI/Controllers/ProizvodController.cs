@@ -66,6 +66,56 @@ namespace ZadatakAPI.Controllers
             }
         }
 
+        [HttpGet("[action]/{sifra}", Name = "ProizvodBySifra")]
+        public IActionResult GetProizvodBySifra(string sifra)
+        {
+            try
+            {
+                var proizvod = _repository.Proizvod.GetProizvodBySifra(sifra);
+                if (proizvod is null)
+                {
+                    _logger.LogError($"Object with sifra: {sifra}, hasn't been found in db.");
+                    return NotFound();
+                }
+                else
+                {
+                    _logger.LogInformation($"Returned object with sifra: {sifra}");
+                    var proizvodResult = _mapper.Map<ProizvodDTO>(proizvod);
+                    return Ok(proizvodResult);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet("[action]/{naziv}", Name = "ProizvodByNaziv")]
+        public IActionResult GetProizvodByNaziv(string naziv)
+        {
+            try
+            {
+                var proizvod = _repository.Proizvod.GetProizvodByNaziv(naziv);
+                if (proizvod is null)
+                {
+                    _logger.LogError($"Object with naziv: {naziv}, hasn't been found in db.");
+                    return NotFound();
+                }
+                else
+                {
+                    _logger.LogInformation($"Returned object with naziv: {naziv}");
+                    var proizvodResult = _mapper.Map<ProizvodDTO>(proizvod);
+                    return Ok(proizvodResult);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
         [HttpPost]
         public IActionResult CreateProizvod([FromBody] ProizvodForCreationDTO proizvod)
         {

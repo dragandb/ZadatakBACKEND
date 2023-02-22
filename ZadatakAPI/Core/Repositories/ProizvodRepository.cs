@@ -19,9 +19,15 @@ namespace ZadatakAPI.Core.Repositories
             return FindByCondition(x => x.Id.Equals(Id))
             .FirstOrDefault();
         }
-        public Proizvod GetProizvodBezID(int Id)
+        public Proizvod GetProizvodBySifra(string Sifra)
         {
-            return FindByCondition(x => x.Id.Equals(Id))
+            return FindByCondition(x => x.Sifra.Equals(Sifra))
+            .FirstOrDefault();
+        }
+
+        public Proizvod GetProizvodByNaziv(string Naziv)
+        {
+            return FindByCondition(x => x.Naziv.Equals(Naziv))
             .FirstOrDefault();
         }
 

@@ -12,6 +12,10 @@ namespace ZadatakAPI.Models
         public DateTime Datum { get; set; }
         public string? Napomena { get; set; }
 
+        public decimal? Ukupno { get; set; }
+        public decimal? UkupnoPopust { get; set; }
+        public decimal? Total { get; set; }
+
         public ICollection<Stavke_racuna>? Stavke { get; set; }
 
         [ForeignKey(nameof(Kupac))]

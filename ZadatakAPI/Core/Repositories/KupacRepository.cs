@@ -19,9 +19,16 @@ namespace ZadatakAPI.Core.Repositories
             return FindByCondition(x => x.Id.Equals(Id))
             .FirstOrDefault();
         }
-        public Kupac GetKupacBezID(int Id)
+
+        public Kupac GetKupacBySifra(string Sifra)
         {
-            return FindByCondition(x => x.Id.Equals(Id))
+            return FindByCondition(x => x.Sifra.Equals(Sifra))
+            .FirstOrDefault();
+        }
+
+        public Kupac GetKupacByNaziv(string Naziv)
+        {
+            return FindByCondition(x => x.Naziv.Equals(Naziv))
             .FirstOrDefault();
         }
 

@@ -68,22 +68,46 @@ namespace ZadatakAPI.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("GetbyBezId")]
-        public IActionResult GetKupacBezID(int id)
+        [HttpGet("[action]/{sifra}", Name = "KupacBySifra")]
+        public IActionResult GetKupacBySifra(string sifra)
         {
             try
             {
-                var kupac = _repository.Kupac.GetKupacBezID(id);
+                var kupac = _repository.Kupac.GetKupacBySifra(sifra);
                 if (kupac is null)
                 {
-                    _logger.LogError($"Object with id: {id}, hasn't been found in db.");
+                    _logger.LogError($"Object with sifra: {sifra}, hasn't been found in db.");
                     return NotFound();
                 }
                 else
                 {
-                    _logger.LogInformation($"Returned object with id: {id}");
-                    var kupacResult = _mapper.Map<KupacBezIdDTO>(kupac);
+                    _logger.LogInformation($"Returned object with sifra: {sifra}");
+                    var kupacResult = _mapper.Map<KupacDTO>(kupac);
+                    return Ok(kupacResult);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet("[action]/{naziv}", Name = "KupacByNaziv")]
+        public IActionResult GetKupacByNaziv(string naziv)
+        {
+            try
+            {
+                var kupac = _repository.Kupac.GetKupacByNaziv(naziv);
+                if (kupac is null)
+                {
+                    _logger.LogError($"Object with naziv: {naziv}, hasn't been found in db.");
+                    return NotFound();
+                }
+                else
+                {
+                    _logger.LogInformation($"Returned object with naziv: {naziv}");
+                    var kupacResult = _mapper.Map<KupacDTO>(kupac);
                     return Ok(kupacResult);
                 }
             }
