@@ -12,8 +12,8 @@ using ZadatakAPI.Data;
 namespace ZadatakAPI.Migrations
 {
     [DbContext(typeof(ZadatakAPIDBContext))]
-    [Migration("20230208112941_Inserted Roles")]
-    partial class InsertedRoles
+    [Migration("20230322080709_updateProizvod")]
+    partial class updateProizvod
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,22 +49,6 @@ namespace ZadatakAPI.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "0bcf39a6-708f-4aaa-b8d1-2770ac554915",
-                            ConcurrencyStamp = "170285b4-f14f-4498-b1f6-3b4fbbdee10d",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "df18fe2a-c8f0-4a69-8fd4-73384a3546c7",
-                            ConcurrencyStamp = "8948d6bf-dc17-4e94-9447-230558479d30",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -90,6 +74,70 @@ namespace ZadatakAPI.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -173,78 +221,6 @@ namespace ZadatakAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ZadatakAPI.Models.ApiUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
             modelBuilder.Entity("ZadatakAPI.Models.Kupac", b =>
                 {
                     b.Property<int>("Id")
@@ -254,24 +230,17 @@ namespace ZadatakAPI.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Adresa")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Mjesto")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Naziv")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Sifra")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -293,24 +262,17 @@ namespace ZadatakAPI.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<string>("Jedinica_mjere")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Naziv")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Sifra")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
-                    b.Property<string>("Stanje")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                    b.Property<int?>("Stanje")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -337,13 +299,13 @@ namespace ZadatakAPI.Migrations
                     b.Property<int>("Kolicina")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("Popust")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("ProizvodID")
+                    b.Property<int>("Popust")
                         .HasColumnType("integer");
 
-                    b.Property<int>("RacunID")
+                    b.Property<int>("ProizvodId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RacunId")
                         .HasColumnType("integer");
 
                     b.Property<decimal>("Vrijednost")
@@ -351,9 +313,9 @@ namespace ZadatakAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProizvodID");
+                    b.HasIndex("ProizvodId");
 
-                    b.HasIndex("RacunID");
+                    b.HasIndex("RacunId");
 
                     b.ToTable("Stavke_Racuna");
                 });
@@ -368,26 +330,32 @@ namespace ZadatakAPI.Migrations
 
                     b.Property<string>("Broj")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("Datum")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("KupacID")
+                    b.Property<int>("KupacId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Napomena")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
+
+                    b.Property<decimal?>("Total")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("Ukupno")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal?>("UkupnoPopust")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Broj")
                         .IsUnique();
 
-                    b.HasIndex("KupacID");
+                    b.HasIndex("KupacId");
 
                     b.ToTable("Zaglavlje_Racuna");
                 });
@@ -403,7 +371,7 @@ namespace ZadatakAPI.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ZadatakAPI.Models.ApiUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -412,7 +380,7 @@ namespace ZadatakAPI.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ZadatakAPI.Models.ApiUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -427,7 +395,7 @@ namespace ZadatakAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ZadatakAPI.Models.ApiUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -436,7 +404,7 @@ namespace ZadatakAPI.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ZadatakAPI.Models.ApiUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -446,31 +414,46 @@ namespace ZadatakAPI.Migrations
             modelBuilder.Entity("ZadatakAPI.Models.Stavke_racuna", b =>
                 {
                     b.HasOne("ZadatakAPI.Models.Proizvod", "Proizvod")
-                        .WithMany()
-                        .HasForeignKey("ProizvodID")
+                        .WithMany("Stavke")
+                        .HasForeignKey("ProizvodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ZadatakAPI.Models.Zaglavlje_racuna", "Zaglavlje_racuna")
-                        .WithMany()
-                        .HasForeignKey("RacunID")
+                    b.HasOne("ZadatakAPI.Models.Zaglavlje_racuna", "Zaglavlje_Racuna")
+                        .WithMany("Stavke")
+                        .HasForeignKey("RacunId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Proizvod");
 
-                    b.Navigation("Zaglavlje_racuna");
+                    b.Navigation("Zaglavlje_Racuna");
                 });
 
             modelBuilder.Entity("ZadatakAPI.Models.Zaglavlje_racuna", b =>
                 {
                     b.HasOne("ZadatakAPI.Models.Kupac", "Kupac")
-                        .WithMany()
-                        .HasForeignKey("KupacID")
+                        .WithMany("Racuni")
+                        .HasForeignKey("KupacId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Kupac");
+                });
+
+            modelBuilder.Entity("ZadatakAPI.Models.Kupac", b =>
+                {
+                    b.Navigation("Racuni");
+                });
+
+            modelBuilder.Entity("ZadatakAPI.Models.Proizvod", b =>
+                {
+                    b.Navigation("Stavke");
+                });
+
+            modelBuilder.Entity("ZadatakAPI.Models.Zaglavlje_racuna", b =>
+                {
+                    b.Navigation("Stavke");
                 });
 #pragma warning restore 612, 618
         }

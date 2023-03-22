@@ -19,8 +19,7 @@ namespace ZadatakAPI.Models.DTO
         [Required]
         public decimal Cijena { get; set; }
 
-        [Required]
-        [StringLength(20)]
-        public string Stanje { get; set; }
+       
+        public int Stanje { get; set; }
     }
 }

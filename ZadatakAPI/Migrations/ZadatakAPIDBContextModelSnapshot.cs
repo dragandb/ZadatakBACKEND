@@ -268,8 +268,8 @@ namespace ZadatakAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Stanje")
-                        .HasColumnType("text");
+                    b.Property<int?>("Stanje")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

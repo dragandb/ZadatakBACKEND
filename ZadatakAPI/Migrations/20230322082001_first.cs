@@ -5,7 +5,7 @@
 namespace ZadatakAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class update2 : Migration
+    public partial class first : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -19,7 +19,7 @@ builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();
 builder.Services.AddAutoMapper(typeof(Program));
     //conecting to the database
-builder.Services.AddDbContext<ZadatakAPIDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ZadatakAPIDB")));
+builder.Services.AddDbContext<ZadatakAPIDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ProdajaDB")));
 
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 

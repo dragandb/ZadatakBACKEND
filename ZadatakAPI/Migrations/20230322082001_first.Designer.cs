@@ -12,8 +12,8 @@ using ZadatakAPI.Data;
 namespace ZadatakAPI.Migrations
 {
     [DbContext(typeof(ZadatakAPIDBContext))]
-    [Migration("20230221125535_update4")]
-    partial class update4
+    [Migration("20230322082001_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -271,8 +271,8 @@ namespace ZadatakAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Stanje")
-                        .HasColumnType("text");
+                    b.Property<int?>("Stanje")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

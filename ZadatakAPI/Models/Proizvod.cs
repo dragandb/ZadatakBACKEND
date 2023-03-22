@@ -13,7 +13,7 @@ namespace ZadatakAPI.Models
         public string? Naziv { get; set; }
         public string? Jedinica_mjere { get; set; }
         public decimal Cijena { get; set; }
-        public string? Stanje { get; set; }
+        public int? Stanje { get; set; }
 
         public ICollection<Stavke_racuna>? Stavke { get; set; }
     }
